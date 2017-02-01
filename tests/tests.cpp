@@ -28,10 +28,12 @@ namespace tester {
     }
 
     void ce_string_test() {
-        constexpr gotl::ce_string<4> d("abzj");
+        constexpr gotl::cx_string<4> d("abzj");
+        static_assert(d.at(0) == 'a', "dd");
         printf("%s\n", d.c_str());
         for (int i = 0; i < d.length(); ++i)
             printf("%c", d.at(i));
+        std::cout << std::endl << d;
 
         constexpr std::array<char, (int) d.at(3)> g{"sd"};
     }

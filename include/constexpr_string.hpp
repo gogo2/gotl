@@ -6,22 +6,22 @@
 #ifndef GOTL_CONSTEXPR_STRING_HPP
 #define GOTL_CONSTEXPR_STRING_HPP
 
+#include <constexpr_str_utils.hpp>
 
 namespace gotl {
     template<std::size_t N, typename CHAR_T = char>
-    class ce_string {
+    class cx_string {
     public:
-        constexpr ce_string() : _data{0}, _length(0) {}
+        constexpr cx_string() : _data{0}, _length(0) {}
 
-        constexpr ce_string(const char data[]) : _data{}, _length() { //TODO what if too long
-            std::size_t i = 0;
-            while (i < N && data[i] != 0) {
-                _data[i] = data[i];
-                ++i;
+        constexpr cx_string(const CHAR_T data[]) : _data{}, _length(cx_strlen<CHAR_T>(data)) {
+            if (_length > N) {
+                throw;//TODO exceptipon
+            } else {
+                for (std::size_t i = 0; i <= _length; ++i)
+                    _data[i] = data[i];
+                _data[N] = (CHAR_T) 0; //#TODO CHAR_T here, jest ok?
             }
-            _data[i] = 0;
-            _data[N] = 0;
-            _length = i;
         }
 
         void fill(const CHAR_T &value) noexcept {
@@ -98,6 +98,13 @@ namespace gotl {
         CHAR_T _data[N + 1];
         std::size_t _length;
     };
+
+    template<std::size_t N, typename CHAR_T>
+    std::ostream &operator<<(std::ostream &ostream, const cx_string<N, CHAR_T> &cx_str) {
+        for (std::size_t i = 0; i < cx_str.length(); ++i)
+            ostream << cx_str[i];
+        return ostream;
+    }
 
 }
 
