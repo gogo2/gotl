@@ -6,7 +6,7 @@
 #include <vector>
 #include <iostream>
 #include <foreach.hpp>
-#include <constexpr_string.hpp>
+#include "../trash/constexpr_string.hpp"
 #include <array>
 
 namespace tester {

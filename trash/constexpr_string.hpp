@@ -6,7 +6,7 @@
 #ifndef GOTL_CONSTEXPR_STRING_HPP
 #define GOTL_CONSTEXPR_STRING_HPP
 
-#include <constexpr_str_utils.hpp>
+#include "constexpr_str_utils.hpp"
 
 namespace gotl {
     template<std::size_t N, typename CHAR_T = char>
@@ -53,6 +53,10 @@ namespace gotl {
             return N;
         }
 
+        constexpr std::size_t capacity() const noexcept {
+            return N;
+        }
+
         constexpr bool empty() const noexcept {
             return _length == 0;
         }
@@ -91,6 +95,10 @@ namespace gotl {
 
         constexpr const CHAR_T &operator[](const std::size_t &n) const noexcept {
             return _data[n];
+        }
+
+        void operator=(const cx_string &other) { //TODO
+            return;
         }
 
 
