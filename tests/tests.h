@@ -9,7 +9,7 @@
 namespace tester {
     void foreach_test();
 
-    void ce_string_test();
+    void make_array_test();
 
 
 }

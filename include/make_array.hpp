@@ -7,6 +7,7 @@
 #define GOTL_MAKE_ARRAY_HPP
 
 #include <array>
+#include <functional>
 
 namespace gotl {
     namespace detail {
@@ -15,11 +16,22 @@ namespace gotl {
             return {{(static_cast<void>(Is), value)...}};
         }
 
+        template<typename T, std::size_t...Is>
+        std::array<T, sizeof...(Is)>
+        make_array_detail(const std::function<T()> &t_maker, std::index_sequence<Is...> indexes) {
+            return {{(static_cast<void>(Is), t_maker())...}};
+        }
+
     }
 
     template<std::size_t N, typename T>
     std::array<T, N> make_array(const T &value) {
         return detail::make_array_detail(value, std::make_index_sequence<N>());
+    }
+
+    template<std::size_t N, typename T>
+    std::array<T, N> make_array(const std::function<T()> &t_maker) {
+        return detail::make_array_detail(t_maker, std::make_index_sequence<N>());
     }
 }
 
