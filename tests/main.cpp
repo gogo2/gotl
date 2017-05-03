@@ -10,8 +10,8 @@ int main() {
         cout << endl << "____foreach_____________________________________" << endl;
 
         tester::foreach_test();
-        cout << endl << endl << "____ce_string___________________________________" << endl;
-        tester::ce_string_test();
+        cout << endl << endl << "____make_array___________________________________" << endl;
+        tester::make_array_test();
         cout << endl << "________________________________________________" << endl;
 
     }
